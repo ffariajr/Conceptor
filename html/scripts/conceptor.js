@@ -3,8 +3,7 @@
 var container = ;
 var p = Raphael(document.getElementById("conceptor-layer"), document.getElementById("conceptor-layer").offsetWidth, window.innerHeight-200);
 var r = p.rephael;
-
-init();
+window.addEventListener('resize', windowResized);init();
 
 
 
