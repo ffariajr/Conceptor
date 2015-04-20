@@ -79,6 +79,9 @@ function makeToolbar() {
     concept.toolbar.color_sltr.options[5].chosen = false;
     concept.toolbar.color_sltr.opset = p.setFinish();
     
+    concept.toolbar.text.bbox = p.rect(0, 0, 0, 0, 0);
+    concept.toolbar.text.text = p.text(0, 0, "");
+    
     // Object Selector Default
     concept.toolbar.obj_sltr.chosen = "object";
     

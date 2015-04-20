@@ -144,21 +144,36 @@ function redrawToolbar(wcoef, hcoef) {
         concept.toolbar.color_sltr.opset.hide();
     }
     
+    
+    // Draw Text Tool
+    concept.toolbar.text.bbox.attr("x", 17 * wcoef);
+    concept.toolbar.text.bbox.attr("y", 320 * hcoef);
+    concept.toolbar.text.bbox.attr("width", 164 * wcoef);
+    concept.toolbar.text.bbox.attr("height", 40 * hcoef);
+    concept.toolbar.text.bbox.attr("r", 2);
+    concept.toolbar.text.bbox.attr("stroke-width", 2);
+    concept.toolbar.text.text.attr("x", 99 * wcoef);
+    concept.toolbar.text.text.attr("y", 340 * hcoef);
+    concept.toolbar.text.text.attr("text", "Write your custom\ntext here");
+    concept.toolbar.text.text.attr("font-size", 26 * wcoef * hcoef * 0.5);
+    concept.toolbar.text.text.attr("font-weight", 1);
+    
+    
     // Draw Object Tabs
     // Draw bboxes first because they are similar
-    concept.toolbar.obj_sltr.objecttab.bbox.attr("path", "M" + (wcoef) + "," + (310 * hcoef) + "l" + (44 * wcoef) + ",0l0," + (15 * hcoef) + "l" + (150 * wcoef) + ",0l0," + (270 * hcoef) + "l" + (-194 * wcoef) + ",0l0," + (-285 * hcoef));
+    concept.toolbar.obj_sltr.objecttab.bbox.attr("path", "M" + (wcoef) + "," + (380 * hcoef) + "l" + (44 * wcoef) + ",0l0," + (15 * hcoef) + "l" + (150 * wcoef) + ",0l0," + (200 * hcoef) + "l" + (-194 * wcoef) + ",0l0," + (-215 * hcoef));
     concept.toolbar.obj_sltr.objecttab.bbox.attr("stroke-width", 2);
     concept.toolbar.obj_sltr.objecttab.bbox.attr("fill", "white");
     concept.toolbar.obj_sltr.objecttab.bbox.attr("title", "Object");
-    concept.toolbar.obj_sltr.picstab.bbox.attr("path", "M" + (51 * wcoef) + "," + (310 * hcoef) + "l" + (44 * wcoef) + ",0l0," + (15 * hcoef) + "l" + (100 * wcoef) + ",0l0," + (270 * hcoef) + "l" + (-194 * wcoef) + ",0l0," + (-270 * hcoef) + "l" + (50 * wcoef) + ",0l0," + (-15 * hcoef));
+    concept.toolbar.obj_sltr.picstab.bbox.attr("path", "M" + (51 * wcoef) + "," + (380 * hcoef) + "l" + (44 * wcoef) + ",0l0," + (15 * hcoef) + "l" + (100 * wcoef) + ",0l0," + (200 * hcoef) + "l" + (-194 * wcoef) + ",0l0," + (-200 * hcoef) + "l" + (50 * wcoef) + ",0l0," + (-15 * hcoef));
     concept.toolbar.obj_sltr.picstab.bbox.attr("stroke-width", 2);
     concept.toolbar.obj_sltr.picstab.bbox.attr("fill", "white");
     concept.toolbar.obj_sltr.picstab.bbox.attr("title", "Picture");
-    concept.toolbar.obj_sltr.containertab.bbox.attr("path", "M" + (101 * wcoef) + "," + (310 * hcoef) + "l" + (44 * wcoef) + ",0l0," + (15 * hcoef) + "l" + (50 * wcoef) + ",0l0," + (270 * hcoef) + "l" + (-194 * wcoef) + ",0l0," + (-270 * hcoef) + "l" + (100 * wcoef) + ",0l0," + (-15 * hcoef));
+    concept.toolbar.obj_sltr.containertab.bbox.attr("path", "M" + (101 * wcoef) + "," + (380 * hcoef) + "l" + (44 * wcoef) + ",0l0," + (15 * hcoef) + "l" + (50 * wcoef) + ",0l0," + (200 * hcoef) + "l" + (-194 * wcoef) + ",0l0," + (-200 * hcoef) + "l" + (100 * wcoef) + ",0l0," + (-15 * hcoef));
     concept.toolbar.obj_sltr.containertab.bbox.attr("stroke-width", 2);
     concept.toolbar.obj_sltr.containertab.bbox.attr("fill", "white");
     concept.toolbar.obj_sltr.containertab.bbox.attr("title", "Container");
-    concept.toolbar.obj_sltr.viewtab.bbox.attr("path", "M" + (151 * wcoef) + "," + (310 * hcoef) + "l" + (44 * wcoef) + ",0l0," + (15 * hcoef) + "l0," + (270 * hcoef) + "l" + (-194 * wcoef) + ",0l0," + (-270 * hcoef) + "l" + (150 * wcoef) + ",0l0," + (-15 * hcoef));
+    concept.toolbar.obj_sltr.viewtab.bbox.attr("path", "M" + (151 * wcoef) + "," + (380 * hcoef) + "l" + (44 * wcoef) + ",0l0," + (15 * hcoef) + "l0," + (200 * hcoef) + "l" + (-194 * wcoef) + ",0l0," + (-200 * hcoef) + "l" + (150 * wcoef) + ",0l0," + (-15 * hcoef));
     concept.toolbar.obj_sltr.viewtab.bbox.attr("stroke-width", 2);
     concept.toolbar.obj_sltr.viewtab.bbox.attr("fill", "white");
     concept.toolbar.obj_sltr.viewtab.bbox.attr("title", "View");
@@ -167,35 +182,35 @@ function redrawToolbar(wcoef, hcoef) {
     concept.toolbar.obj_sltr.objecttab.text.attr("text", "Obj");
     concept.toolbar.obj_sltr.objecttab.text.attr("font-size", 12);
     concept.toolbar.obj_sltr.objecttab.text.attr("x", 23 * wcoef);
-    concept.toolbar.obj_sltr.objecttab.text.attr("y", 317 * hcoef);
+    concept.toolbar.obj_sltr.objecttab.text.attr("y", 387 * hcoef);
     concept.toolbar.obj_sltr.objecttab.text.attr("title", "Object");
     concept.toolbar.obj_sltr.picstab.text.attr("text", "Pic");
     concept.toolbar.obj_sltr.picstab.text.attr("font-size", 12);
     concept.toolbar.obj_sltr.picstab.text.attr("x", 73 * wcoef);
-    concept.toolbar.obj_sltr.picstab.text.attr("y", 317 * hcoef);
+    concept.toolbar.obj_sltr.picstab.text.attr("y", 387 * hcoef);
     concept.toolbar.obj_sltr.picstab.text.attr("title", "Picture");
     concept.toolbar.obj_sltr.containertab.text.attr("text", "Cont");
     concept.toolbar.obj_sltr.containertab.text.attr("font-size", 12);
     concept.toolbar.obj_sltr.containertab.text.attr("x", 123 * wcoef);
-    concept.toolbar.obj_sltr.containertab.text.attr("y", 317 * hcoef);
+    concept.toolbar.obj_sltr.containertab.text.attr("y", 387 * hcoef);
     concept.toolbar.obj_sltr.containertab.text.attr("title", "Container");
     concept.toolbar.obj_sltr.viewtab.text.attr("text", "View");
     concept.toolbar.obj_sltr.viewtab.text.attr("font-size", 12);
     concept.toolbar.obj_sltr.viewtab.text.attr("x", 173 * wcoef);
-    concept.toolbar.obj_sltr.viewtab.text.attr("y", 317 * hcoef);
+    concept.toolbar.obj_sltr.viewtab.text.attr("y", 387 * hcoef);
     concept.toolbar.obj_sltr.viewtab.text.attr("title", "View");
     
     // Draw the Scrollbar
     var scroll_arr = [concept.toolbar.obj_sltr.objecttab.scrollbar, concept.toolbar.obj_sltr.picstab.scrollbar,  concept.toolbar.obj_sltr.containertab.scrollbar, concept.toolbar.obj_sltr.viewtab.scrollbar];
     for (x = 0; x < 4; x += 1) {
         scroll_arr[x].bbox.attr("x", 185 * wcoef);
-        scroll_arr[x].bbox.attr("y", 330 * hcoef);
+        scroll_arr[x].bbox.attr("y", 400 * hcoef);
         scroll_arr[x].bbox.attr("width", 10 * wcoef);
-        scroll_arr[x].bbox.attr("height", 260 * hcoef);
+        scroll_arr[x].bbox.attr("height", 190 * hcoef);
         scroll_arr[x].bbox.attr("r", 1);
         
         scroll_arr[x].upbox.attr("x", 185 * wcoef);
-        scroll_arr[x].upbox.attr("y", 330 * hcoef);
+        scroll_arr[x].upbox.attr("y", 400 * hcoef);
         scroll_arr[x].upbox.attr("width", 10 * wcoef);
         scroll_arr[x].upbox.attr("height", 15 * hcoef);
         scroll_arr[x].upbox.attr("r", 1);
@@ -206,19 +221,19 @@ function redrawToolbar(wcoef, hcoef) {
         scroll_arr[x].downbox.attr("height", 15 * hcoef);
         scroll_arr[x].downbox.attr("r", 1);
         
-        scroll_arr[x].uparrow.attr("path", "M" + (190 * wcoef) + "," + (343 * hcoef) + "l0," + (-10 * hcoef) + "l" + (-3 * wcoef) + "," + (3 * hcoef) + "m" + (6 * wcoef) + ",0l" + (-3 * wcoef) + "," + (-3 * hcoef));
+        scroll_arr[x].uparrow.attr("path", "M" + (190 * wcoef) + "," + (413 * hcoef) + "l0," + (-10 * hcoef) + "l" + (-3 * wcoef) + "," + (3 * hcoef) + "m" + (6 * wcoef) + ",0l" + (-3 * wcoef) + "," + (-3 * hcoef));
         scroll_arr[x].uparrow.attr("stroke-width", 2);
         
         scroll_arr[x].downarrow.attr("path", "M" + (190 * wcoef) + "," + (577 * hcoef) + "l0," + (10 * hcoef) + "l" + (-3 * wcoef) + "," + (-3 * hcoef) + "m" + (6 * wcoef) + ",0l" + (-3 * wcoef) + "," + (3 * hcoef));
         scroll_arr[x].downarrow.attr("stroke-width", 2);
         
         scroll_arr[x].bar.attr("x", 185 * wcoef);
-        scroll_arr[x].bar.attr("y", (330 + scroll_arr[x].position) * hcoef);
+        scroll_arr[x].bar.attr("y", (400 + scroll_arr[x].position) * hcoef);
         scroll_arr[x].bar.attr("width", 10);
         scroll_arr[x].bar.attr("height", 80);
         scroll_arr[x].bar.attr("r", 2);
         
-        scroll_arr[x].lines.attr("path", "M" + (187 * wcoef) + "," + ((365 + scroll_arr[x].position) * hcoef) + "l" + (6 * wcoef) + ",0m0," + (5 * hcoef) + "l" + (-6 * wcoef) + ",0m0," + (5 * hcoef) + "l" + (6 * wcoef) + ",0");
+        scroll_arr[x].lines.attr("path", "M" + (187 * wcoef) + "," + ((435 + scroll_arr[x].position) * hcoef) + "l" + (6 * wcoef) + ",0m0," + (5 * hcoef) + "l" + (-6 * wcoef) + ",0m0," + (5 * hcoef) + "l" + (6 * wcoef) + ",0");
     }
     
     
@@ -226,14 +241,14 @@ function redrawToolbar(wcoef, hcoef) {
     
     // Draw Default Objects: Object
     concept.toolbar.obj_sltr.objecttab.options[0].obj.attr("x", 8 * wcoef);
-    concept.toolbar.obj_sltr.objecttab.options[0].obj.attr("y", 340 * hcoef);
+    concept.toolbar.obj_sltr.objecttab.options[0].obj.attr("y", 410 * hcoef);
     concept.toolbar.obj_sltr.objecttab.options[0].obj.attr("width", 80 * wcoef);
     concept.toolbar.obj_sltr.objecttab.options[0].obj.attr("height", 50 * hcoef);
     concept.toolbar.obj_sltr.objecttab.options[0].obj.attr("stroke-width", 2);
     concept.toolbar.obj_sltr.objecttab.options[0].obj.attr("fill", "grey");
     
     concept.toolbar.obj_sltr.objecttab.options[1].obj.attr("x", 97 * wcoef);
-    concept.toolbar.obj_sltr.objecttab.options[1].obj.attr("y", 340 * hcoef);
+    concept.toolbar.obj_sltr.objecttab.options[1].obj.attr("y", 410 * hcoef);
     concept.toolbar.obj_sltr.objecttab.options[1].obj.attr("width", 80 * wcoef);
     concept.toolbar.obj_sltr.objecttab.options[1].obj.attr("height", 50 * hcoef);
     concept.toolbar.obj_sltr.objecttab.options[1].obj.attr("stroke-width", 2);
@@ -241,13 +256,13 @@ function redrawToolbar(wcoef, hcoef) {
     concept.toolbar.obj_sltr.objecttab.options[1].obj.attr("r", 10);
     
     concept.toolbar.obj_sltr.objecttab.options[2].obj.attr("cx", 48 * wcoef);
-    concept.toolbar.obj_sltr.objecttab.options[2].obj.attr("cy", 445 * hcoef);
+    concept.toolbar.obj_sltr.objecttab.options[2].obj.attr("cy", 515 * hcoef);
     concept.toolbar.obj_sltr.objecttab.options[2].obj.attr("r", 30 * hcoef * wcoef);
     concept.toolbar.obj_sltr.objecttab.options[2].obj.attr("fill", "grey");
     concept.toolbar.obj_sltr.objecttab.options[2].obj.attr("stroke-width", 2);
     
     concept.toolbar.obj_sltr.objecttab.options[3].obj.attr("cx", 133 * wcoef);
-    concept.toolbar.obj_sltr.objecttab.options[3].obj.attr("cy", 445 * hcoef);
+    concept.toolbar.obj_sltr.objecttab.options[3].obj.attr("cy", 515 * hcoef);
     concept.toolbar.obj_sltr.objecttab.options[3].obj.attr("rx", 45 * wcoef);
     concept.toolbar.obj_sltr.objecttab.options[3].obj.attr("ry", 25 * hcoef);
     concept.toolbar.obj_sltr.objecttab.options[3].obj.attr("fill", "grey");

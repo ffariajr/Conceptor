@@ -12,24 +12,52 @@ function windowResized() {
     update_view();
 }
 
+function draggedOff() {
+    "use strict";
+    
+    
+}
 
+function scrolled(wheel) {
+    "use strict";
+    //IE: MouseWheelEvent
+    //Opera: MouseEvent
+    //Safari: WheelEvent
+    //Chrome: WheelEvent
+    //Firefox: WheelEvent
+    
+}
 
+function keyUpped(keyEve) {
+    "use strict";
+    
+    
+    
+    
+    
+}
 
-
-
-
-
-
-
+function keyDowned(keyEve) {
+    "use strict";
+    
+    
+    
+    
+}
 
 function init_handlers() {
     "use strict";
     
     // Add listener for browser window resize
-    window.addEventListener('resize', windowResized);
+    window.addEventListener("resize", windowResized);
     
+    window.addEventListener("dragexit", draggedOff);
+    window.addEventListener("dragleave", draggedOff);
     
+    window.addEventListener("scroll", scrolled);
     
+    window.addEventListener("keydown", keyDowned);
+    window.addEventListener("keyup", keyUpped);
     
     
 }
