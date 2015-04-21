@@ -36,9 +36,22 @@
  *
  */
 
+function keyBufferQueue() {
+    "use strict";
+    var q = {
+        queue: [],
+        lim: 10,
+        start: 0,
+        end: 0,
+        amt: 0,
+        pop: function () {if (q.amt > 0) {var temp = q.queue[q.end]; q.end += 1; q.amt -= 1; if (q.start > q.lim - 1) {q.start = 0; } if (q.end > q.lim - 1) {q.end = 0; } return temp; } else {return null; } },
+        push: function (e) {if (q.amt < q.lim) {q.queue[q.start] = e; q.start += 1; q.amt += 1; if (q.start > q.lim - 1) {q.start = 0; } if (q.end > q.lim - 1) {q.end = 0; } return true; } else {return false; } }
+    };
+    return q;
+}
+
 
 var sys;
-
 
 /**
  * This function is in charge of starting the application.
@@ -50,6 +63,17 @@ var sys;
 function init() {
     "use strict";
 
+    sys = {
+        p: "",
+        concepts: "",
+        c_index: "",
+        keyBuf: keyBufferQueue()
+    };
+    
+    // Create canvas to fit the area
+    sys.p = new Raphael(document.getElementById("conceptor-layer"), document.getElementById("conceptor-layer").offsetWidth, window.innerHeight - 150);
+
+    
     sys.concepts = [];
     sys.c_index = 0;
     
@@ -59,17 +83,6 @@ function init() {
     init_handlers();
     update_view();
 }
-
-
-sys = {
-    p: "",
-    concepts: "",
-    c_index: ""
-};
-
-// Create canvas to fit the area
-sys.p = new Raphael(document.getElementById("conceptor-layer"), document.getElementById("conceptor-layer").offsetWidth, window.innerHeight - 150);
-
 
 init();
 

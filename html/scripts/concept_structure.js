@@ -1,3 +1,6 @@
+/*global make_view */
+
+
 /*
 This file builds the structure for a new concept.
 
@@ -19,12 +22,15 @@ function obj_scrollbar() {
     return {
         bbox: "",
         upbox: "",
+        updarken: false,
         uparrow: "",
         downbox: "",
+        downdarken: false,
         downarrow: "",
         bar: "",
+        bardarken: false,
         lines: "",
-        position: "",
+        position: 0,
         length: ""
     };
 }
@@ -35,7 +41,8 @@ function obj_options() {
         obj: "",
         type: "",
         name: "",
-        chosen: ""
+        hover: false,
+        chosen: false
     };
 }
 
@@ -44,6 +51,7 @@ function make_tab(num) {
     return {
         bbox: "",
         text: "",
+        hover: false,
         options: makeOptions(obj_options, num),
         scrollbar: obj_scrollbar()
     };
@@ -68,7 +76,9 @@ function make_text() {
     "use strict";
     return {
         bbox: "",
-        text: ""
+        text: "",
+        hover: false,
+        chosen: false
     };
 }
 
@@ -77,7 +87,8 @@ function color_options() {
     return {
         opbox: "",
         color: "",
-        chosen: ""
+        hover: false,
+        chosen: false
     };
 }
 
@@ -87,8 +98,10 @@ function make_color_sltr() {
         bbox: "",
         color: "",
         dropbox: "",
+        hover: false,
         arrow: "",
         droplist: "",
+        droplistbkg: "",
         options: makeOptions(color_options, 6),
         opset: "",
         open: ""
@@ -101,7 +114,8 @@ function tools_options() {
         opbox: "",
         icon: "",
         optext: "",
-        chosen: ""
+        hover: false,
+        chosen: false
     };
 }
 
@@ -116,9 +130,12 @@ function make_tools() {
 function make_helptool() {
     "use strict";
     return {
+        set: "",
         ht_circle: "",
         ht_dot: "",
-        ht_qmark: ""
+        ht_qmark: "",
+        hover: false,
+        chosen: false
     };
 }
 
@@ -134,15 +151,18 @@ function make_toolbar() {
     };
 }
 
-function make_screen() {
+function make_root_screen() {
     "use strict";
-    return "";
+    var i = make_view(null);
+    i.focus = 0;
+    i.chosen = true;
+    return i;
 }
 
 function make_concept() {
     "use strict";
     return {
         toolbar: make_toolbar(),
-        screen: make_screen()
+        screen: make_root_screen()
     };
 }
