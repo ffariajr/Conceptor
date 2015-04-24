@@ -1,4 +1,4 @@
-/*global make_view */
+/*global clone_view */
 
 
 /*
@@ -77,6 +77,9 @@ function make_text() {
     return {
         bbox: "",
         text: "",
+        max_per_line: 22,
+        total_lines: 0,
+        total_chars: 0,
         hover: false,
         chosen: false
     };
@@ -153,9 +156,10 @@ function make_toolbar() {
 
 function make_root_screen() {
     "use strict";
-    var i = make_view(null);
+    var i = clone_view(null);
     i.focus = 0;
     i.chosen = true;
+    i.parent = null;
     return i;
 }
 

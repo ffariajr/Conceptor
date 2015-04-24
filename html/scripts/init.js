@@ -50,6 +50,19 @@ function keyBufferQueue() {
     return q;
 }
 
+function makeStatus() {
+    "use strict";
+    return {
+        user_typing: false,
+        obj_focus: null
+        
+        
+        
+        
+        
+    };
+}
+
 
 var sys;
 
@@ -67,7 +80,8 @@ function init() {
         p: "",
         concepts: "",
         c_index: "",
-        keyBuf: keyBufferQueue()
+        keyBuf: keyBufferQueue(),
+        status: makeStatus()
     };
     
     // Create canvas to fit the area
