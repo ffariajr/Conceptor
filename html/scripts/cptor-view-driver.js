@@ -66,7 +66,7 @@ function drawToolbar(wcoef, hcoef) {
         
         concept.toolbar.tools.options[x].optext.attr("x", 122 * wcoef);
         concept.toolbar.tools.options[x].optext.attr("y", (75 + x * 50) * hcoef);
-        concept.toolbar.tools.options[x].optext.attr("font-size", 12);
+        concept.toolbar.tools.options[x].optext.attr("font-size", 30 * 0.5 * wcoef);
         concept.toolbar.tools.options[x].icon.attr("stroke-width", 2);
     }
     
@@ -154,12 +154,15 @@ function drawToolbar(wcoef, hcoef) {
         concept.toolbar.text.bbox.attr("width", 164 * wcoef);
         concept.toolbar.text.bbox.attr("height", 40 * hcoef);
         concept.toolbar.text.bbox.attr("r", 2);
-        concept.toolbar.text.bbox.attr("stroke", concept.toolbar.color_sltr.color);
         concept.toolbar.text.text.attr("x", 99 * wcoef);
         concept.toolbar.text.text.attr("y", 340 * hcoef);
         concept.toolbar.text.text.attr("text", "Write your custom\ntext here");
         concept.toolbar.text.text.attr("font-size", 26 * wcoef * hcoef * 0.5);
         concept.toolbar.text.text.attr("font-weight", 1);
+    }
+    if (concept.toolbar.text.hover) {
+        concept.toolbar.text.bbox.attr("fill", "grey");
+    } else {
         concept.toolbar.text.bbox.attr("fill", "white");
     }
     
@@ -279,17 +282,6 @@ function drawToolbar(wcoef, hcoef) {
     
     
     
-    
-    if (concept.toolbar.color_sltr.color === "white") {
-        concept.toolbar.obj_sltr.objecttab.options[0].obj.attr("stroke", "grey");
-    } else {
-        concept.toolbar.obj_sltr.objecttab.options[0].obj.attr("stroke", concept.toolbar.color_sltr.color);
-    }
-    if (concept.toolbar.obj_sltr.objecttab.options[0].hover && !concept.toolbar.obj_sltr.objecttab.options[0].chosen) {
-        concept.toolbar.obj_sltr.objecttab.options[0].obj.attr("fill", "grey");
-    } else {
-        concept.toolbar.obj_sltr.objecttab.options[0].obj.attr("fill", "white");
-    }
     // Draw Default Objects: Object
     if (!concept.toolbar.obj_sltr.objecttab.options[0].chosen) {
         concept.toolbar.obj_sltr.objecttab.options[0].obj.attr("x", 8 * wcoef);
@@ -297,16 +289,18 @@ function drawToolbar(wcoef, hcoef) {
         concept.toolbar.obj_sltr.objecttab.options[0].obj.attr("width", 80 * wcoef);
         concept.toolbar.obj_sltr.objecttab.options[0].obj.attr("height", 50 *   hcoef);
         concept.toolbar.obj_sltr.objecttab.options[0].obj.attr("stroke-width", 2);
-    }
-    if (concept.toolbar.color_sltr.color === "white") {
-        concept.toolbar.obj_sltr.objecttab.options[1].obj.attr("stroke", "grey");
+        if (concept.toolbar.color_sltr.color === "white") {
+            concept.toolbar.obj_sltr.objecttab.options[0].obj.attr("stroke", "grey");
+        } else {
+            concept.toolbar.obj_sltr.objecttab.options[0].obj.attr("stroke", concept.toolbar.color_sltr.color);
+        }
+        if (concept.toolbar.obj_sltr.objecttab.options[0].hover) {
+            concept.toolbar.obj_sltr.objecttab.options[0].obj.attr("fill", "grey");
+        } else {
+            concept.toolbar.obj_sltr.objecttab.options[0].obj.attr("fill", "white");
+        }
     } else {
-        concept.toolbar.obj_sltr.objecttab.options[1].obj.attr("stroke", concept.toolbar.color_sltr.color);
-    }
-    if (concept.toolbar.obj_sltr.objecttab.options[1].hover && !concept.toolbar.obj_sltr.objecttab.options[1].chosen) {
-        concept.toolbar.obj_sltr.objecttab.options[1].obj.attr("fill", "grey");
-    } else {
-        concept.toolbar.obj_sltr.objecttab.options[1].obj.attr("fill", "white");
+        concept.toolbar.obj_sltr.objecttab.options[0].obj.attr("fill", "grey");
     }
     if (!concept.toolbar.obj_sltr.objecttab.options[1].chosen) {
         concept.toolbar.obj_sltr.objecttab.options[1].obj.attr("x", 97 * wcoef);
@@ -314,40 +308,56 @@ function drawToolbar(wcoef, hcoef) {
         concept.toolbar.obj_sltr.objecttab.options[1].obj.attr("width", 80 * wcoef);
         concept.toolbar.obj_sltr.objecttab.options[1].obj.attr("height", 50 * hcoef);
         concept.toolbar.obj_sltr.objecttab.options[1].obj.attr("stroke-width", 2);
+        if (concept.toolbar.color_sltr.color === "white") {
+            concept.toolbar.obj_sltr.objecttab.options[1].obj.attr("stroke", "grey");
+        } else {
+            concept.toolbar.obj_sltr.objecttab.options[1].obj.attr("stroke", concept.toolbar.color_sltr.color);
+        }
+        if (concept.toolbar.obj_sltr.objecttab.options[1].hover) {
+            concept.toolbar.obj_sltr.objecttab.options[1].obj.attr("fill", "grey");
+        } else {
+            concept.toolbar.obj_sltr.objecttab.options[1].obj.attr("fill", "white");
+        }
         concept.toolbar.obj_sltr.objecttab.options[1].obj.attr("r", 10);
-    }
-    if (concept.toolbar.obj_sltr.objecttab.options[2].hover && !concept.toolbar.obj_sltr.objecttab.options[2].chosen) {
-        concept.toolbar.obj_sltr.objecttab.options[2].obj.attr("fill", "grey");
     } else {
-        concept.toolbar.obj_sltr.objecttab.options[2].obj.attr("fill", "white");
-    }
-    if (concept.toolbar.color_sltr.color === "white") {
-        concept.toolbar.obj_sltr.objecttab.options[2].obj.attr("stroke", "grey");
-    } else {
-        concept.toolbar.obj_sltr.objecttab.options[2].obj.attr("stroke", concept.toolbar.color_sltr.color);
+        concept.toolbar.obj_sltr.objecttab.options[1].obj.attr("fill", "grey");
     }
     if (!concept.toolbar.obj_sltr.objecttab.options[2].chosen) {
         concept.toolbar.obj_sltr.objecttab.options[2].obj.attr("cx", 48 * wcoef);
         concept.toolbar.obj_sltr.objecttab.options[2].obj.attr("cy", 515 * hcoef);
         concept.toolbar.obj_sltr.objecttab.options[2].obj.attr("r", 30 * hcoef * wcoef);
+        if (concept.toolbar.obj_sltr.objecttab.options[2].hover) {
+            concept.toolbar.obj_sltr.objecttab.options[2].obj.attr("fill", "grey");
+        } else {
+            concept.toolbar.obj_sltr.objecttab.options[2].obj.attr("fill", "white");
+        }
         concept.toolbar.obj_sltr.objecttab.options[2].obj.attr("stroke-width", 2);
-    }
-    if (concept.toolbar.obj_sltr.objecttab.options[3].hover && !concept.toolbar.obj_sltr.objecttab.options[3].chosen) {
-        concept.toolbar.obj_sltr.objecttab.options[3].obj.attr("fill", "grey");
+        if (concept.toolbar.color_sltr.color === "white") {
+            concept.toolbar.obj_sltr.objecttab.options[2].obj.attr("stroke", "grey");
+        } else {
+            concept.toolbar.obj_sltr.objecttab.options[2].obj.attr("stroke", concept.toolbar.color_sltr.color);
+        }
     } else {
-        concept.toolbar.obj_sltr.objecttab.options[3].obj.attr("fill", "white");
-    }
-    if (concept.toolbar.color_sltr.color === "white") {
-        concept.toolbar.obj_sltr.objecttab.options[3].obj.attr("stroke", "grey");
-    } else {
-        concept.toolbar.obj_sltr.objecttab.options[3].obj.attr("stroke", concept.toolbar.color_sltr.color);
+        concept.toolbar.obj_sltr.objecttab.options[2].obj.attr("fill", "grey");
     }
     if (!concept.toolbar.obj_sltr.objecttab.options[3].chosen) {
         concept.toolbar.obj_sltr.objecttab.options[3].obj.attr("cx", 133 * wcoef);
         concept.toolbar.obj_sltr.objecttab.options[3].obj.attr("cy", 515 * hcoef);
         concept.toolbar.obj_sltr.objecttab.options[3].obj.attr("rx", 45 * wcoef);
         concept.toolbar.obj_sltr.objecttab.options[3].obj.attr("ry", 25 * hcoef);
+        if (concept.toolbar.obj_sltr.objecttab.options[3].hover) {
+            concept.toolbar.obj_sltr.objecttab.options[3].obj.attr("fill", "grey");
+        } else {
+            concept.toolbar.obj_sltr.objecttab.options[3].obj.attr("fill", "white");
+        }
         concept.toolbar.obj_sltr.objecttab.options[3].obj.attr("stroke-width", 2);
+        if (concept.toolbar.color_sltr.color === "white") {
+            concept.toolbar.obj_sltr.objecttab.options[3].obj.attr("stroke", "grey");
+        } else {
+            concept.toolbar.obj_sltr.objecttab.options[3].obj.attr("stroke", concept.toolbar.color_sltr.color);
+        }
+    } else {
+        concept.toolbar.obj_sltr.objecttab.options[3].obj.attr("fill", "grey");
     }
     //triangle
     
