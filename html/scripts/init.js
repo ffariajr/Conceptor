@@ -50,6 +50,19 @@ function keyBufferQueue() {
     return q;
 }
 
+function makeStatus() {
+    "use strict";
+    return {
+        user_typing: false,
+        obj_focus: null,
+        tool: null,
+        screen: null
+        
+        
+        
+    };
+}
+
 
 var sys;
 
@@ -67,7 +80,8 @@ function init() {
         p: "",
         concepts: "",
         c_index: "",
-        keyBuf: keyBufferQueue()
+        keyBuf: keyBufferQueue(),
+        status: makeStatus()
     };
     
     // Create canvas to fit the area
@@ -78,6 +92,7 @@ function init() {
     sys.c_index = 0;
     
     sys.concepts[sys.c_index] = make_concept();
+    sys.status.screen = sys.concepts[sys.c_index].screen;
     
     makeToolbar();
     init_handlers();
