@@ -4,7 +4,7 @@
 function clone_view(r_obj) {
     "use strict";
     return {
-        bbox: r_obj === null ? sys.p.rect() : r_obj.clone(),
+        bbox: r_obj === null ? sys.p.rect(0, 0, 0, 0, 0) : r_obj.clone(),
         focus: -1,
         chosen: false,
         elems: sys.p.set(),

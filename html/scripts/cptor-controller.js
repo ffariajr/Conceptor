@@ -56,7 +56,7 @@ function removeSection(tstr, d) {
             str = str + arr[q];
         } else {
             var sec = true;
-            while (q < arr.length && arr[q] !== d1 && arr[q] !== d2) {
+            while (q < arr.length - 1 && arr[q + 1] !== d1 && arr[q + 1] !== d2) {
                 q += 1;
             }
         }
@@ -71,29 +71,61 @@ function compileSections(tstr) {
     var r_str = removeSection(removeSection(tstr, "t"), "s");
     var s_str = removeSection(removeSection(tstr, "r"), "t");
     
+    var tx = 0;
+    var ty = 0;
     
+    var q;
+    for (q = 0; q < t_str.length; q += 1) {
+        if (t_str.charAt(q) === "t") {
+            q += 1;
+            tx += parseInt(t_str.substring(q), 10);
+            q += parseInt(t_str.substring(q), 10).toString().length - 1;
+        } else if (t_str.charAt(q) === ",") {
+            q += 1;
+            ty += parseInt(t_str.substring(q), 10);
+            q += parseInt(t_str.substring(q), 10).toString().length - 1;
+        }
+    }
     
+    var r = 0;
+    for (q = 0; q < r_str.length; q += 1) {
+        if (r_str.charAt(q) === "r") {
+            q += 1;
+            r += parseInt(r_str.substring(q), 10);
+            q += parseInt(r_str.substring(q), 10).toString().length - 1;
+        }
+    }
     
+    r = r % 360;
+    
+    var s = 1;
+    for (q = 0; q < s_str.length; q += 1) {
+        if (s_str.charAt(q) === "s") {
+            q += 1;
+            s *= parseInt(s_str.substring(q), 10);
+            q += parseInt(s_str.substring(q), 10).toString().length - 1;
+        }
+    }
+    
+    return "t" + tx + "," + ty + "r" + r + "s" + s;
 }
 
-function addTranslate(tstr, x, y) {
+function replaceTranslate(tstr, x, y) {
     "use strict";
     
-    
-    
+    return removeSection(tstr, "t") + "t" + x + "," + y;
 }
 
 function addRotation(tstr, r) {
     "use strict";
     
-    
-    
+    return compileSections(tstr + "r" + r);
 }
 
 function addScale(tstr, s) {
     "use strict";
     
-    
+    return compileSections(tstr + "s" + s);
 }
 
 function removeTranslate(tstr) {
@@ -245,17 +277,104 @@ function setup_focus_handler(elm) {
     
     elm.mouseover(function (e) {this.attr("stroke-width", 3); this.toFront(); });
     
-    elm.mouseout(function (e) {if (sys.status.obj_focus !== this) {this.attr("stroke-width", 2); } });
+    elm.mouseout(function (e) {if (sys.status.obj_focus !== this) {this.attr("stroke-width", 2); if (sys.status.obj_focus !== null) {sys.status.obj_focus.toFront(); } } });
 }
 
 function setup_click_handler(elm) {
     "use strict";
     
-    elm.drag(function (dx, dy, x, y, e) {if (sys.status.tool === null) {this.attr("transform", addTranslate(this.transform(), dx, dy)); this.toFront(); } }, function (x, y, e) {sys.status.user_typing = false; if (sys.status.obj_focus !== null) {sys.status.obj_focus.attr("stroke-width", 2); } sys.status.obj_focus = this; }, function (e) {if (sys.concepts[sys.c_index].toolbar.toolbar_rect.isPointInside(this.getBBox().x, this.getBBox().y + 20)) {this.attr("transform", removeTranslate(this.transform())); } else if (sys.status.tool === null) {if (this.type === "rect") {this.attr("x", this.getBBox().x); this.attr("y", this.getBBox().y); } else if (this.type === "text") {this.attr("x", this.getBBox().x + (this.getBBox().width / 2)); this.attr("y", this.getBBox().y + (this.getBBox().height / 2)); } else {this.attr("cx", this.getBBox().x + (this.getBBox().width / 2)); this.attr("cy", this.getBBox().y + (this.getBBox().height / 2)); } this.attr("transform", removeTranslate(this.transform())); } sys.status.obj_focus.attr("stroke-width", 2); sys.status.obj_focus = null; });
+    /*elm.drag(
+        function (dx, dy, x, y, e) {
+            sys.status.obj_focus.transform("t" + dx + "," + dy);//replaceTranslate(sys.status.obj_focus.attr("transform"), dx, dy));
+            sys.status.obj_focus.toFront();
+        },
+        function (x, y, e) {
+            sys.status.user_typing = false;
+        },
+        function (e) {
+            if (sys.concepts[sys.c_index].toolbar.toolbar_rect.isPointInside(this.getBBox().x, this.getBBox().y + 20)) {
+                this.attr("transform", removeTranslate(this.transform()));
+            } else {
+                if (this.type === "rect") {
+                    this.attr("x", this.getBBox().x);
+                    this.attr("y", this.getBBox().y);
+                } else if (this.type === "text") {
+                    this.attr("x", this.getBBox().x + (this.getBBox().width / 2));
+                    this.attr("y", this.getBBox().y + (this.getBBox().height / 2));
+                } else {
+                    this.attr("cx", this.getBBox().x + (this.getBBox().width / 2));
+                    this.attr("cy", this.getBBox().y + (this.getBBox().height / 2));
+                }
+                this.attr("transform", removeTranslate(this.transform()));
+                sys.status.obj_focus.attr("stroke-width", 2);
+                sys.status.obj_focus = null;
+            }
+        }
+    );*/
     
-    elm.click(function (e) {if (sys.status.obj_focus !== this) {if (sys.status.obj_focus !== null) {sys.status.obj_focus.attr("stroke-width", 2); } else {sys.status.obj_focus = this; sys.status.obj_focus.attr("stroke-width", 3); } } else {sys.status.obj_focus.attr("stroke-width", 2); sys.status.obj_focus = null; } if (sys.status.obj_focus.type === "text" && sys.status.tool === null) {sys.status.user_typing = true; } });
-    
-    elm.mousedown(function (e) {if (sys.status.tool !== null) {sys.status.user_typing = false; switch (sys.status.tool.type) { case "Rotate": sys.status.obj_focus = this; rotate(true); break; case "Resize": sys.status.obj_focus = this; resize(true); break; case "Link": var l = sys.status.obj_focus; sys.status.obj_focus = this; link(l); break; case "Zoom": sys.status.obj_focus = this; zoom(false); break; case "Recolor": sys.status.obj_focus = this; recolor(); break; } } });
+    elm.mousedown(
+        function (e) {
+            if (sys.status.tool !== null) {
+                sys.status.user_typing = false;
+                switch (sys.status.tool.type) {
+                case "Rotate":
+                    if (sys.status.obj_focus !== this && sys.status.obj_focus !== null) {
+                        sys.status.obj_focus.attr("stroke-width", 2);
+                    }
+                    sys.status.obj_focus = this;
+                    sys.status.obj_focus.attr("stroke-width", 3);
+                    rotate(true);
+                    break;
+                case "Resize":
+                    if (sys.status.obj_focus !== this && sys.status.obj_focus !== null) {
+                        sys.status.obj_focus.attr("stroke-width", 2);
+                    }
+                    sys.status.obj_focus = this;
+                    sys.status.obj_focus.attr("stroke-width", 3);
+                    resize(true);
+                    break;
+                case "Link":
+                    var l = sys.status.obj_focus;
+                    if (sys.status.obj_focus !== this && sys.status.obj_focus !== null) {
+                        sys.status.obj_focus.attr("stroke-width", 2);
+                    }
+                    sys.status.obj_focus = this;
+                    sys.status.obj_focus.attr("stroke-width", 3);
+                    link(l);
+                    break;
+                case "Zoom":
+                    if (sys.status.obj_focus !== this && sys.status.obj_focus !== null) {
+                        sys.status.obj_focus.attr("stroke-width", 2);
+                    }
+                    sys.status.obj_focus = this;
+                    sys.status.obj_focus.attr("stroke-width", 3);
+                    zoom(false);
+                    break;
+                case "Recolor":
+                    if (sys.status.obj_focus !== this && sys.status.obj_focus !== null) {
+                        sys.status.obj_focus.attr("stroke-width", 2);
+                    }
+                    sys.status.obj_focus = this;
+                    sys.status.obj_focus.attr("stroke-width", 3);
+                    recolor();
+                    break;
+                }
+            }
+            if (sys.status.obj_focus !== null && sys.status.obj_focus.type === "text") {
+                sys.status.user_typing = true;
+            }
+            if (sys.status.obj_focus !== this) {
+                if (sys.status.obj_focus !== null) {
+                    sys.status.obj_focus.attr("stroke-width", 2);
+                }
+                sys.status.obj_focus = this;
+                sys.status.obj_focus.attr("stroke-width", 3);
+            } else {
+                sys.status.obj_focus.attr("stroke-width", 2);
+                sys.status.obj_focus = null;
+            }
+        }
+    );
     
 }
 
@@ -399,11 +518,11 @@ function init_toolbar_clicks(toolbar) {
     toolbar.color_sltr.options[5].opbox.click(function (e) {sys.status.user_typing = false; toolbar.color_sltr.open = false; toolbar.color_sltr.hover = false; toolbar.color_sltr.options[5].hover = false; toolbar.color_sltr.color = toolbar.color_sltr.options[5].color; update_view(); });
     
     
-    toolbar.tools.options[0].opbox.click(function (e) {sys.status.user_typing = false; if (sys.status.tool !== null) {sys.status.tool.chosen = false; } if (!toolbar.tools.options[0].chosen) {sys.status.tool = toolbar.tools.options[0]; } toolbar.tools.options[0].chosen = !toolbar.tools.options[0].chosen; update_view(); });
-    toolbar.tools.options[1].opbox.click(function (e) {sys.status.user_typing = false; if (sys.status.tool !== null) {sys.status.tool.chosen = false; } if (!toolbar.tools.options[1].chosen) {sys.status.tool = toolbar.tools.options[1]; } toolbar.tools.options[1].chosen = !toolbar.tools.options[1].chosen; update_view(); });
-    toolbar.tools.options[2].opbox.click(function (e) {sys.status.user_typing = false; if (sys.status.tool !== null) {sys.status.tool.chosen = false; } if (!toolbar.tools.options[2].chosen) {sys.status.tool = toolbar.tools.options[2]; } toolbar.tools.options[2].chosen = !toolbar.tools.options[2].chosen; update_view(); });
-    toolbar.tools.options[3].opbox.click(function (e) {sys.status.user_typing = false; if (sys.status.tool !== null) {sys.status.tool.chosen = false; } if (!toolbar.tools.options[3].chosen) {sys.status.tool = toolbar.tools.options[3]; } toolbar.tools.options[3].chosen = !toolbar.tools.options[3].chosen; update_view(); });
-    toolbar.tools.options[4].opbox.click(function (e) {sys.status.user_typing = false; if (sys.status.tool !== null) {sys.status.tool.chosen = false; } if (!toolbar.tools.options[4].chosen) {sys.status.tool = toolbar.tools.options[4]; } toolbar.tools.options[4].chosen = !toolbar.tools.options[4].chosen; update_view(); });
+    toolbar.tools.options[0].opbox.click(function (e) {sys.status.user_typing = false; if (sys.status.tool !== null) {sys.status.tool.chosen = false; } sys.status.tool = toolbar.tools.options[0]; toolbar.tools.options[0].chosen = true; update_view(); });
+    toolbar.tools.options[1].opbox.click(function (e) {sys.status.user_typing = false; if (sys.status.tool !== null) {sys.status.tool.chosen = false; } sys.status.tool = toolbar.tools.options[1]; toolbar.tools.options[1].chosen = true; update_view(); });
+    toolbar.tools.options[2].opbox.click(function (e) {sys.status.user_typing = false; if (sys.status.tool !== null) {sys.status.tool.chosen = false; } sys.status.tool = toolbar.tools.options[2]; toolbar.tools.options[2].chosen = true; update_view(); });
+    toolbar.tools.options[3].opbox.click(function (e) {sys.status.user_typing = false; if (sys.status.tool !== null) {sys.status.tool.chosen = false; } sys.status.tool = toolbar.tools.options[3]; toolbar.tools.options[3].chosen = true; update_view(); });
+    toolbar.tools.options[4].opbox.click(function (e) {sys.status.user_typing = false; if (sys.status.tool !== null) {sys.status.tool.chosen = false; } sys.status.tool = toolbar.tools.options[4]; toolbar.tools.options[4].chosen = true; update_view(); });
     
     toolbar.text.text.click(function (e) {sys.status.user_typing = true; sys.status.obj_focus = toolbar.text; });
     
@@ -428,6 +547,8 @@ function init_toolbar_handlers(toolbar) {
 
 function init_handlers() {
     "use strict";
+    
+    //sys.p.text(500, 100, "[" + removeTranslate("t2,3") + "]");
     
     var concept = sys.concepts[sys.c_index];
     
