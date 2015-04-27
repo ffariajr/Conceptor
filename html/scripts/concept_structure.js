@@ -115,6 +115,7 @@ function tools_options() {
     "use strict";
     return {
         opbox: "",
+        type: "",
         icon: "",
         optext: "",
         hover: false,
