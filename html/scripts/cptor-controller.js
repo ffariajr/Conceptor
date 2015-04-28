@@ -44,6 +44,7 @@ function delim(d) {
 function removeSection(tstr, d) {
     "use strict";
     
+    tstr = tstr.toString();
     var arr = tstr.split("");
     var str = "";
     var ds = delim(d);
@@ -53,12 +54,12 @@ function removeSection(tstr, d) {
     var q;
     for (q = 0; q < arr.length; q += 1) {
         if (arr[q] !== d) {
-            str = str + arr[q];
+            str.concat(arr[q]);
         } else {
-            var sec = true;
-            while (q < arr.length - 1 && arr[q + 1] !== d1 && arr[q + 1] !== d2) {
+            while (q < arr.length && arr[q] !== d1 && arr[q] !== d2) {
                 q += 1;
             }
+            q += 1;
         }
     }
     return str;
@@ -283,13 +284,18 @@ function setup_focus_handler(elm) {
 function setup_click_handler(elm) {
     "use strict";
     
-    /*elm.drag(
+    elm.drag(
         function (dx, dy, x, y, e) {
-            sys.status.obj_focus.transform("t" + dx + "," + dy);//replaceTranslate(sys.status.obj_focus.attr("transform"), dx, dy));
-            sys.status.obj_focus.toFront();
+            this.transform("t" + dx + "," + dy); //replaceTranslate(sys.status.obj_focus.attr("transform"), dx, dy));
+            this.toFront();
         },
         function (x, y, e) {
             sys.status.user_typing = false;
+            if (sys.status.obj_focus !== this && sys.status.obj_focus !== null) {
+                sys.status.obj_focus.attr("stroke-width", 2);
+            }
+            sys.status.obj_focus = this;
+            sys.status.obj_focus.attr("stroke-width", 3);
         },
         function (e) {
             if (sys.concepts[sys.c_index].toolbar.toolbar_rect.isPointInside(this.getBBox().x, this.getBBox().y + 20)) {
@@ -306,11 +312,11 @@ function setup_click_handler(elm) {
                     this.attr("cy", this.getBBox().y + (this.getBBox().height / 2));
                 }
                 this.attr("transform", removeTranslate(this.transform()));
-                sys.status.obj_focus.attr("stroke-width", 2);
+                this.attr("stroke-width", 2);
                 sys.status.obj_focus = null;
             }
         }
-    );*/
+    );
     
     elm.mousedown(
         function (e) {
