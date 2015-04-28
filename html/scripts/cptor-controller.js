@@ -48,21 +48,23 @@ function removeSection(tstr, d) {
     var arr = tstr.split("");
     var str = "";
     var ds = delim(d);
-    var d1 = ds.d1;
-    var d2 = ds.d2;
     
     var q;
+    var sec = false;
     for (q = 0; q < arr.length; q += 1) {
-        if (arr[q] !== d) {
-            str.concat(arr[q]);
-        } else {
-            while (q < arr.length && arr[q] !== d1 && arr[q] !== d2) {
-                q += 1;
+        if (arr[q].toString() === d.toString()) {
+            sec = true;
+        }
+        if (sec) {
+            if (arr[q].toString() === ds.d1.toString() || arr[q].toString() === ds.d2.toString()) {
+                sec = false;
             }
-            q += 1;
+        }
+        if (!sec) {
+            str.concat(arr[q].toString());
         }
     }
-    return str;
+    return str.toString();
 }
 
 function compileSections(tstr) {
@@ -114,7 +116,7 @@ function compileSections(tstr) {
 function replaceTranslate(tstr, x, y) {
     "use strict";
     
-    return removeSection(tstr, "t") + "t" + x + "," + y;
+    return "t" + x + "," + y + removeSection(tstr, "t").toString();
 }
 
 function addRotation(tstr, r) {
@@ -226,9 +228,9 @@ function keyPressed(keyEve) {
 function rotate(ccw) {
     "use strict";
     
-    var num = 10;
+    var num = 22.5;
     if (ccw) {
-        num = -10;
+        num = -22.5;
     }
     sys.status.obj_focus.transform("...r" + num);
 }
@@ -236,6 +238,11 @@ function rotate(ccw) {
 function resize(big) {
     "use strict";
     
+    var num = 0.9;
+    if (big) {
+        num = 1.1;
+    }
+    sys.status.obj_focus.transform("...s" + num);
 }
 
 function link(r_end) {
@@ -251,6 +258,7 @@ function zoom(out) {
 function recolor() {
     "use strict";
     
+    sys.status.obj_focus.attr("stroke", sys.concepts[sys.c_index].toolbar.color_sltr.color);
 }
 
 function rMouseDowned(keyEve) {
@@ -288,7 +296,8 @@ function setup_click_handler(elm) {
     elm.drag(
         function (dx, dy, x, y, e) {
             if (sys.status.tool === null) {
-                this.transform(replaceTranslate(this.transform(), dx, dy));
+                //sys.p.text(x, y, "[" + removeSection("r1t2,2s1r1s1", "t").toString() + "]");
+                this.attr("transform", replaceTranslate(this.transform(), dx, dy));
                 this.toFront();
                 if (sys.status.obj_focus !== null && sys.status.obj_focus === this) {
                     sys.status.obj_focus.attr("stroke-width", 2);
@@ -368,7 +377,7 @@ function setup_click_handler(elm) {
                     break;
                 }
             }
-            if (sys.status.obj_focus !== null && sys.status.obj_focus.type === "text") {
+            if (this.type === "text") {
                 sys.status.user_typing = true;
             }
             if (sys.status.obj_focus === null) {
