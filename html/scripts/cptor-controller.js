@@ -290,12 +290,6 @@ function setup_click_handler(elm) {
             this.toFront();
         },
         function (x, y, e) {
-            sys.status.user_typing = false;
-            if (sys.status.obj_focus !== this && sys.status.obj_focus !== null) {
-                sys.status.obj_focus.attr("stroke-width", 2);
-            }
-            sys.status.obj_focus = this;
-            sys.status.obj_focus.attr("stroke-width", 3);
         },
         function (e) {
             if (sys.concepts[sys.c_index].toolbar.toolbar_rect.isPointInside(this.getBBox().x, this.getBBox().y + 20)) {
@@ -312,16 +306,14 @@ function setup_click_handler(elm) {
                     this.attr("cy", this.getBBox().y + (this.getBBox().height / 2));
                 }
                 this.attr("transform", removeTranslate(this.transform()));
-                this.attr("stroke-width", 2);
-                sys.status.obj_focus = null;
             }
         }
     );
     
     elm.mousedown(
         function (e) {
+            sys.status.user_typing = false;
             if (sys.status.tool !== null) {
-                sys.status.user_typing = false;
                 switch (sys.status.tool.type) {
                 case "Rotate":
                     if (sys.status.obj_focus !== this && sys.status.obj_focus !== null) {
@@ -369,15 +361,14 @@ function setup_click_handler(elm) {
             if (sys.status.obj_focus !== null && sys.status.obj_focus.type === "text") {
                 sys.status.user_typing = true;
             }
-            if (sys.status.obj_focus !== this) {
-                if (sys.status.obj_focus !== null) {
-                    sys.status.obj_focus.attr("stroke-width", 2);
-                }
+            if (sys.status.obj_focus === null) {
                 sys.status.obj_focus = this;
                 sys.status.obj_focus.attr("stroke-width", 3);
-            } else {
+            } else if (sys.status.obj_focus === this) {
                 sys.status.obj_focus.attr("stroke-width", 2);
                 sys.status.obj_focus = null;
+            } else {
+                sys.status.obj_focus.attr("stroke-width", 2);
             }
         }
     );
