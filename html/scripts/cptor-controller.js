@@ -120,13 +120,14 @@ function replaceTranslate(tstr, x, y) {
 function addRotation(tstr, r) {
     "use strict";
     
-    return compileSections(tstr + "r" + r);
+    var str = removeSection(tstr, "r");
+    return str + "r" + r;
 }
 
 function addScale(tstr, s) {
     "use strict";
     
-    return compileSections(tstr + "s" + s);
+    return compileSections(tstr + "...s" + s);
 }
 
 function removeTranslate(tstr) {
@@ -286,26 +287,34 @@ function setup_click_handler(elm) {
     
     elm.drag(
         function (dx, dy, x, y, e) {
-            this.transform("t" + dx + "," + dy); //replaceTranslate(sys.status.obj_focus.attr("transform"), dx, dy));
-            this.toFront();
+            if (sys.status.tool === null) {
+                this.transform(replaceTranslate(this.transform(), dx, dy));
+                this.toFront();
+                if (sys.status.obj_focus !== null && sys.status.obj_focus === this) {
+                    sys.status.obj_focus.attr("stroke-width", 2);
+                    sys.status.obj_focus = null;
+                }
+            }
         },
         function (x, y, e) {
         },
         function (e) {
-            if (sys.concepts[sys.c_index].toolbar.toolbar_rect.isPointInside(this.getBBox().x, this.getBBox().y + 20)) {
-                this.attr("transform", removeTranslate(this.transform()));
-            } else {
-                if (this.type === "rect") {
-                    this.attr("x", this.getBBox().x);
-                    this.attr("y", this.getBBox().y);
-                } else if (this.type === "text") {
-                    this.attr("x", this.getBBox().x + (this.getBBox().width / 2));
-                    this.attr("y", this.getBBox().y + (this.getBBox().height / 2));
+            if (sys.status.tool === null) {
+                if (sys.concepts[sys.c_index].toolbar.toolbar_rect.isPointInside(this.getBBox().x, this.getBBox().y + 20)) {
+                    this.attr("transform", removeTranslate(this.transform()));
                 } else {
-                    this.attr("cx", this.getBBox().x + (this.getBBox().width / 2));
-                    this.attr("cy", this.getBBox().y + (this.getBBox().height / 2));
+                    if (this.type === "rect") {
+                        this.attr("x", this.getBBox().x);
+                        this.attr("y", this.getBBox().y);
+                    } else if (this.type === "text") {
+                        this.attr("x", this.getBBox().x + (this.getBBox().width / 2));
+                        this.attr("y", this.getBBox().y + (this.getBBox().height / 2));
+                    } else {
+                        this.attr("cx", this.getBBox().x + (this.getBBox().width / 2));
+                        this.attr("cy", this.getBBox().y + (this.getBBox().height / 2));
+                    }
+                    this.attr("transform", removeTranslate(this.transform()));
                 }
-                this.attr("transform", removeTranslate(this.transform()));
             }
         }
     );
@@ -322,6 +331,7 @@ function setup_click_handler(elm) {
                     sys.status.obj_focus = this;
                     sys.status.obj_focus.attr("stroke-width", 3);
                     rotate(true);
+                    sys.status.obj_focus = null;
                     break;
                 case "Resize":
                     if (sys.status.obj_focus !== this && sys.status.obj_focus !== null) {
