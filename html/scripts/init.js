@@ -6,6 +6,16 @@
 /*global windowResized */
 /*global init_handlers */
 
+
+// Name: Fernando Faria
+// Course: CSC 415
+// Semester: Spring 2015
+// Instructor: Dr. Pulimood 
+// Project name: Conceptor
+// Description: Visual Concept Illustrator
+// Filename: init.js
+
+
 /**
  * This file is run by the html page when it processes the page's 
  *      area where my app will function

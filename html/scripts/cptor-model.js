@@ -1,6 +1,16 @@
 /*jslint vars: true */
 /*global sys */
 
+
+// Name: Fernando Faria
+// Course: CSC 415
+// Semester: Spring 2015
+// Instructor: Dr. Pulimood 
+// Project name: Conceptor
+// Description: Visual Concept Illustrator
+// Filename: cptor-model.js
+
+
 function clone_view(r_obj) {
     "use strict";
     return {

@@ -1,6 +1,15 @@
 /*jslint vars: true */
 /*global sys */
 
+// Name: Fernando Faria
+// Course: CSC 415
+// Semester: Spring 2015
+// Instructor: Dr. Pulimood 
+// Project name: Conceptor
+// Description: Visual Concept Illustrator
+// Filename: cptor-view-driver.js
+
+
 /**
  * This function actually draws the components of the toolbar.
  * It populates the objects attributes so that they render correctly.

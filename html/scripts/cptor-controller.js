@@ -4,6 +4,14 @@
 /*global clone_element */
 /*global clone_text */
 
+// Name: Fernando Faria
+// Course: CSC 415
+// Semester: Spring 2015
+// Instructor: Dr. Pulimood 
+// Project name: Conceptor
+// Description: Visual Concept Illustrator
+// Filename: cptor-controller.js
+
 /**
  * Resize canvas with current browser window dimensions.
  * Calls setCoefs() so that new size coefficients are calculated.
@@ -296,8 +304,8 @@ function setup_click_handler(elm) {
     elm.drag(
         function (dx, dy, x, y, e) {
             if (sys.status.tool === null) {
-                //sys.p.text(x, y, "[" + removeSection("r1t2,2s1r1s1", "t").toString() + "]");
-                this.attr("transform", replaceTranslate(this.transform(), dx, dy));
+                this.attr("transform", removeSection(this.transform().toString(), "t"));
+                this.transform("...t" + dx + "," + dy);
                 this.toFront();
                 if (sys.status.obj_focus !== null && sys.status.obj_focus === this) {
                     sys.status.obj_focus.attr("stroke-width", 2);
@@ -310,7 +318,7 @@ function setup_click_handler(elm) {
         function (e) {
             if (sys.status.tool === null) {
                 if (sys.concepts[sys.c_index].toolbar.toolbar_rect.isPointInside(this.getBBox().x, this.getBBox().y + 20)) {
-                    this.attr("transform", removeTranslate(this.transform()));
+                    this.attr("transform", removeSection(this.transform().toString(), "t"));
                 } else {
                     if (this.type === "rect") {
                         this.attr("x", this.getBBox().x);
@@ -322,7 +330,7 @@ function setup_click_handler(elm) {
                         this.attr("cx", this.getBBox().x + (this.getBBox().width / 2));
                         this.attr("cy", this.getBBox().y + (this.getBBox().height / 2));
                     }
-                    this.attr("transform", removeTranslate(this.transform()));
+                    this.attr("transform", removeSection(this.transform().toString(), "t"));
                 }
             }
         }

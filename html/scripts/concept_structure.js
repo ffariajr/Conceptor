@@ -1,6 +1,15 @@
 /*global clone_view */
 
 
+// Name: Fernando Faria
+// Course: CSC 415
+// Semester: Spring 2015
+// Instructor: Dr. Pulimood 
+// Project name: Conceptor
+// Description: Visual Concept Illustrator
+// Filename: concept_structure.js
+
+
 /*
 This file builds the structure for a new concept.
 
